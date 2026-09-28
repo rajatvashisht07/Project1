@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    credentialsId: 'github-credentials',
+                    url: 'https://github.com/rajatvashisht07/Project1/jenkins-demo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building application...'
+                sh 'ls -la'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh 'test -f index.html'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+                sh '''
+                    sudo cp index.html /var/www/html/index.html
+                '''
+            }
+        }
+    }
+}
