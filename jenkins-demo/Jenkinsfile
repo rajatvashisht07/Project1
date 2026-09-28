@@ -21,7 +21,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'test -f index.html'
+                sh 'test -f jenkins-demo/index.html'
             }
         }
 
@@ -29,7 +29,7 @@ pipeline {
             steps {
                 echo 'Deploying application...'
                 sh '''
-                    sudo cp index.html /var/www/html/index.html
+                    sudo cp jenkins-demo/index.html /var/www/html/index.html
                 '''
             }
         }
