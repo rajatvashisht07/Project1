@@ -1,0 +1,59 @@
+```groovy
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME     = "devops-cicd-app"
+        CONTAINER_NAME = "devops-cicd-test"
+        TEST_PORT      = "5001"
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh '''
+                    docker build \
+                      -t ${IMAGE_NAME}:${BUILD_NUMBER} .
+                '''
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh '''
+                    docker run -d \
+                      --name ${CONTAINER_NAME} \
+                      -p ${TEST_PORT}:5000 \
+                      ${IMAGE_NAME}:${BUILD_NUMBER}
+                '''
+            }
+        }
+
+        stage('Health Check') {
+            steps {
+                sh '''
+                    sleep 5
+                    curl -f http://localhost:${TEST_PORT}/health
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            sh '''
+                docker stop ${CONTAINER_NAME} || true
+                docker rm ${CONTAINER_NAME} || true
+            '''
+        }
+    }
+}
+```
+
