@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME     = "devops-cicd-app"
-        CONTAINER_NAME = "devops-cicd-test"
+        IMAGE_NAME     = "devops-cicd-app1"
+        CONTAINER_NAME = "devops-cicd-test1"
         TEST_PORT      = "5001"
     }
 
