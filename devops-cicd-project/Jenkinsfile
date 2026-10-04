@@ -45,8 +45,8 @@ pipeline {
         always {
             sh '''
                 docker restart ${CONTAINER_NAME} || true
+               '''
                 
-            ```
         }
     }
 }
