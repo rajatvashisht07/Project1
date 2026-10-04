@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME     = "devops-cicd-app1"
-        CONTAINER_NAME = "devops-cicd-test1"
-        TEST_PORT      = "5002"
+        IMAGE_NAME     = "devops-cicd-app3"
+        CONTAINER_NAME = "devops-cicd-test3"
+        TEST_PORT      = "5003"
     }
 
     stages {
